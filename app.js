@@ -32,5 +32,18 @@ servicesRouter.all('/actions/rpc', actions.rpc);
 
 app.use(`/api/v${apiVersion}`, servicesRouter);
 
+/* eslint-disable no-unused-vars */
+// 404
+app.use(function(req, res, next) {
+	res.status(404).send('Not Found');
+});
+
+// 500
+app.use(function(err, req, res, next) {
+	console.error(err.stack);
+	res.status(500).send('Internal Server Error: ' + err);
+});
+/* eslint-enable no-unused-vars */
+
 // Serving
 app.listen(port, () => console.log(`http://localhost:${port}`));
