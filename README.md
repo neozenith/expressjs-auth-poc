@@ -12,12 +12,13 @@ npm start
 In another tab:
 
 ```
-curl -s http://localhost:3000/auth/sso
+export MY_TOKEN=`curl -s http://localhost:3000/auth/sso`
 
-# Returns uuidv1 as token
+# Returns uuidv1 as token at the moment
+echo $MY_TOKEN
 74958070-232f-11e8-b12d-f1a4665f5b1a
 
-curl -s -H "cs-eapi-token: 74958070-232f-11e8-b12d-f1a4665f5b1a" http://localhost:3000/api/v1/action/message
+curl -s -H "cs-eapi-token: $MY_TOKEN" http://localhost:3000/api/v1/actions/message
 
 message
 ```
