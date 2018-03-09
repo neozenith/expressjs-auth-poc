@@ -1,12 +1,10 @@
 'use strict';
 
-const message = function(req, res) {
-	console.log(req);
+const message = (req, res) => {
 	res.send('message');
 };
 
-const rpc = function(req, res) {
-	console.log(req);
+const rpc = (req, res) => {
 	res.send('rpc');
 };
 

@@ -1,11 +1,15 @@
 'use strict';
 
-// Imports
+// Module Imports
 const express = require('express'),
 	path = require('path'),
 	compression = require('compression');
+
+// Internal Imports
 const actions = require('./api/actions'),
 	auth = require('./api/auth');
+
+// Config
 const pkg = require('./package.json');
 
 // Server Setup
@@ -23,14 +27,19 @@ app.use(express.static(path.join(__dirname, 'static')));
 // Routing
 app.get('/', (req, res) => res.send('Hello World!'));
 
-const servicesRouter = express.Router();
+// App level routing
+const EapiSsoOptions = {
+	tokens: {},
+	tokenTimeout: 15
+};
+app.all('/auth/sso', auth.sso());
 
-servicesRouter.all('/auth/sso', auth.sso);
-
-servicesRouter.all('/actions/message', actions.message);
-servicesRouter.all('/actions/rpc', actions.rpc);
-
-app.use(`/api/v${apiVersion}`, servicesRouter);
+// Collection of API Routes
+const apiRouter = express.Router();
+apiRouter.use(auth.tokenAuthenticate());
+apiRouter.all('/actions/message', actions.message);
+apiRouter.all('/actions/rpc', actions.rpc);
+app.use(`/api/v${apiVersion}`, apiRouter);
 
 /* eslint-disable no-unused-vars */
 // 404
