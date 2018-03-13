@@ -27,11 +27,6 @@ app.use(express.static(path.join(__dirname, 'static')));
 // Routing
 app.get('/', (req, res) => res.send('Hello World!'));
 
-// App level routing
-const EapiSsoOptions = {
-	tokens: {},
-	tokenTimeout: 15
-};
 app.all('/auth/sso', auth.sso());
 
 // Collection of API Routes

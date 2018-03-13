@@ -9,6 +9,12 @@ npm install
 npm start
 ```
 
+Alternatively for live reloading whilst in development using `nodemon`:
+
+```
+npm run dev
+```
+
 In another tab:
 
 ```
