@@ -8,7 +8,7 @@ const actions = require('./actions'),
 	auth = require('./auth');
 
 module.exports = function(app, passport) {
-	// UNSECURED
+	// UNSECURED:
 	app.get('/', function(req, res) {
 		res.render('index.ejs'); // load the index.ejs file
 	});
@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
 		res.json(health);
 	});
 
-	// SECURED
+	// SECURED:
 	app.all('/auth/sso', auth.sso());
 
 	// Collection of API Routes
